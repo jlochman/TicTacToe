@@ -1,6 +1,6 @@
 package cz.jkoudelka.tictactoe.entityDomain;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -11,20 +11,20 @@ import org.hibernate.annotations.UpdateTimestamp;
 @MappedSuperclass
 public class PersistenceUpdatableObject extends PersistenceObject {
 
-	@Column(updatable = false, nullable = false)
+	@Column
 	@CreationTimestamp
-	private Date created;
+	private Timestamp created;
 
-	@Column(nullable = false)
+	@Column
 	@UpdateTimestamp
-	private Date lastUpdated;
+	private Timestamp lastUpdated;
 
-	public Date getCreated() {
-		return (Date) created.clone();
+	public Timestamp getCreated() {
+		return (Timestamp) created.clone();
 	}
 
-	public Date getLastUpdated() {
-		return (Date) lastUpdated.clone();
+	public Timestamp getLastUpdated() {
+		return (Timestamp) lastUpdated.clone();
 	}
 
 }
