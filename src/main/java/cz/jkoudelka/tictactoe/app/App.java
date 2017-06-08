@@ -25,6 +25,7 @@ public class App extends Application {
 	}
 
 	public static void main(String[] args) {
+		DAOLocator.getInstance().initializeDAOs();
 		ServiceLocator.getInstance().initializeService();
 
 		PlayerEntity player = new PlayerEntity();

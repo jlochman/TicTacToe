@@ -11,22 +11,30 @@ import cz.jkoudelka.tictactoe.DAO.database.LogEntityDatabaseDAO;
 import cz.jkoudelka.tictactoe.DAO.database.PlayerEntityDatabaseDAO;
 import cz.jkoudelka.tictactoe.DAO.database.PlayerLogEntityDatabaseDAO;
 
-public class DAOSingleton {
+public class DAOLocator {
 
 	private LogEntityDAO logDAO;
-
 	private PlayerEntityDAO playerDAO;
 	private PlayerLogEntityDAO playerLogDAO;
-
 	private GameEntityDAO gameDAO;
 	private GameLogEntityDAO gameLogDAO;
 
-	public DAOSingleton() {
-		logDAO = new LogEntityDatabaseDAO();
+	private static DAOLocator instance;
 
+	private DAOLocator() {
+	}
+
+	public static DAOLocator getInstance() {
+		if (instance == null) {
+			instance = new DAOLocator();
+		}
+		return instance;
+	}
+
+	public void initializeDAOs() {
+		logDAO = new LogEntityDatabaseDAO();
 		playerDAO = new PlayerEntityDatabaseDAO();
 		playerLogDAO = new PlayerLogEntityDatabaseDAO();
-
 		gameDAO = new GameEntityDatabaseDAO();
 		gameLogDAO = new GameLogEntityDatabaseDAO();
 	}

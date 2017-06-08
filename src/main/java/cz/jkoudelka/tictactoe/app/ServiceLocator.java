@@ -14,8 +14,6 @@ import cz.jkoudelka.tictactoe.entityDomain.services.impl.PlayerLogEntityServiceI
 
 public class ServiceLocator {
 
-	private DAOSingleton daos;
-
 	private DatabaseService dbService;
 
 	private LogEntityService logService;
@@ -27,7 +25,6 @@ public class ServiceLocator {
 	private static ServiceLocator instance;
 
 	private ServiceLocator() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public static ServiceLocator getInstance() {
@@ -38,8 +35,6 @@ public class ServiceLocator {
 	}
 
 	public void initializeService() {
-		daos = new DAOSingleton();
-
 		dbService = new DatabaseService();
 
 		logService = new LogEntityServiceImpl();
@@ -47,10 +42,6 @@ public class ServiceLocator {
 		gameLogService = new GameLogEntityServiceImpl();
 		playerService = new PlayerEntityServiceImpl();
 		playerLogService = new PlayerLogEntityServiceImpl();
-	}
-
-	public DAOSingleton getDaos() {
-		return daos;
 	}
 
 	public DatabaseService getDBService() {
