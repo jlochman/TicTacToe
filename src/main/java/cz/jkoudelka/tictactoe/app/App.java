@@ -12,7 +12,7 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		GraphicControllerDTO gcDTO = PaneUtils.loadFXPaneByClass(StandardLayoutController.class);
-		Scene scene = new Scene(gcDTO.getGraphic(), 400, 300);
+		Scene scene = new Scene(gcDTO.getGraphic(), 1000, 600);
 
 		primaryStage.setTitle("TIC TAC TOE");
 		primaryStage.setScene(scene);

@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 
-
-<AnchorPane prefHeight="399.0" prefWidth="593.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="cz.jkoudelka.tictactoe.graphics.layout.StandardLayoutController">
+<AnchorPane prefHeight="399.0" prefWidth="593.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.jkoudelka.tictactoe.graphics.layout.StandardLayoutController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <AnchorPane fx:id="leftPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <SplitPane dividerPositions="0.4" orientation="VERTICAL" prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+              <items>
+                <AnchorPane fx:id="playerLWPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                <AnchorPane fx:id="gameLWPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+              </items>
+            </SplitPane>
          </left>
          <center>
-            <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <center>
-                  <AnchorPane fx:id="contentPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-               </center>
-            </BorderPane>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+              <tabs>
+                <Tab text="INFO">
+                  <content>
+                    <AnchorPane fx:id="infoPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                <Tab text="GAME">
+                  <content>
+                    <AnchorPane fx:id="gamePane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
          </center>
-         <top>
-            <HBox fx:id="navigationBox" prefHeight="46.0" prefWidth="593.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button mnemonicParsing="false" text="Button" />
-                  <Button mnemonicParsing="false" text="Button" />
-               </children>
-            </HBox>
-         </top>
       </BorderPane>
    </children>
 </AnchorPane>
