@@ -13,6 +13,7 @@ import cz.jkoudelka.tictactoe.entityDomain.services.impl.PlayerEntityServiceImpl
 import cz.jkoudelka.tictactoe.entityDomain.services.impl.PlayerLogEntityServiceImpl;
 import cz.jkoudelka.tictactoe.game.BoardService;
 import cz.jkoudelka.tictactoe.game.GameService;
+import cz.jkoudelka.tictactoe.observer.ObserverManager;
 
 public class ServiceLocator {
 
@@ -27,6 +28,8 @@ public class ServiceLocator {
 	private BoardService boardService;
 	private GameService gameService;
 
+	private ObserverManager observerManager;
+	
 	private static ServiceLocator instance;
 
 	private ServiceLocator() {
@@ -50,6 +53,8 @@ public class ServiceLocator {
 
 		boardService = new BoardService();
 		gameService = new GameService();
+		
+		observerManager = new ObserverManager();
 	}
 
 	public DatabaseService getDBService() {
@@ -82,6 +87,10 @@ public class ServiceLocator {
 
 	public GameService getGameService() {
 		return gameService;
+	}
+	
+	public ObserverManager getObserverManager() {
+		return observerManager;
 	}
 
 }
