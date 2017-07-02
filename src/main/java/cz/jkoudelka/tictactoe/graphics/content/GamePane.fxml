@@ -3,9 +3,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="cz.jkoudelka.tictactoe.graphics.content.GamePaneController">
-   <children>
-      <Label text="GamePane" />
-   </children>
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.jkoudelka.tictactoe.graphics.content.GamePaneController">
+	<children>
+		<Label text="GamePane" />
+	</children>
 </AnchorPane>

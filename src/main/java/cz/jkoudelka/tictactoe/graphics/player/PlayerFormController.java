@@ -9,7 +9,6 @@ import cz.jkoudelka.tictactoe.entityDomain.services.PlayerEntityService;
 import cz.jkoudelka.tictactoe.observer.ObserverManager;
 import cz.jkoudelka.tictactoe.observer.events.PlayerCreatedEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -32,17 +31,7 @@ public class PlayerFormController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
-		btnCreate.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				player.setName(edtName.getText());
-				player.setPwd(edtPwd.getText());
-				playerEntityService.persist(player);
-				observerManager.raiseEvent(new PlayerCreatedEvent(player));
-				closeWindow();
-			}
-		});
+		btnCreate.setOnAction(this::createPlayerPressed);
 	}
 
 	public void init(PlayerEntity player) {
@@ -55,6 +44,14 @@ public class PlayerFormController implements Initializable {
 	private void closeWindow() {
 		Stage stage = (Stage) btnCreate.getScene().getWindow();
 		stage.close();
+	}
+
+	private void createPlayerPressed(ActionEvent event) {
+		player.setName(edtName.getText());
+		player.setPwd(edtPwd.getText());
+		playerEntityService.persist(player);
+		observerManager.raiseEvent(new PlayerCreatedEvent(player));
+		closeWindow();
 	}
 
 }

@@ -41,4 +41,15 @@ public interface EntityServiceInterface<T extends PersistenceObject> {
 		getDAO().deleteAll();
 	}
 
+	public default T refresh(T entity) {
+		if (entity == null) {
+			throw new NullPointerException("entity is null");
+		}
+		if (entity.getId() == null) {
+			throw new NullPointerException("entity has no ID");
+		}
+		return findById(entity.getId());
+
+	}
+
 }
