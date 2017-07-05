@@ -6,12 +6,14 @@ import java.util.ResourceBundle;
 import cz.jkoudelka.tictactoe.app.ServiceLocator;
 import cz.jkoudelka.tictactoe.entityDomain.GameEntity;
 import cz.jkoudelka.tictactoe.entityDomain.PlayerEntity;
+import cz.jkoudelka.tictactoe.entityDomain.services.GameEntityService;
 import cz.jkoudelka.tictactoe.entityDomain.services.PlayerEntityService;
 import cz.jkoudelka.tictactoe.graphics.common.GraphicControllerDTO;
 import cz.jkoudelka.tictactoe.observer.Event;
 import cz.jkoudelka.tictactoe.observer.Observer;
 import cz.jkoudelka.tictactoe.observer.ObserverManager;
 import cz.jkoudelka.tictactoe.observer.events.GameCreatedEvent;
+import cz.jkoudelka.tictactoe.observer.events.GameEndedEvent;
 import cz.jkoudelka.tictactoe.observer.events.GameSelectedEvent;
 import cz.jkoudelka.tictactoe.observer.events.PlayerSelectedEvent;
 import cz.jkoudelka.tictactoe.utils.DialogUtils;
@@ -32,6 +34,7 @@ public class GameListViewController implements Initializable {
 
 	private ObserverManager observerManager = ServiceLocator.getInstance().getObserverManager();
 	private PlayerEntityService playerEntityService = ServiceLocator.getInstance().getPlayerEntityService();
+	private GameEntityService gameEntityService = ServiceLocator.getInstance().getGameEntityService();
 
 	private PlayerEntity selectedPlayer;
 
@@ -57,8 +60,12 @@ public class GameListViewController implements Initializable {
 					PlayerSelectedEvent typedEvent = (PlayerSelectedEvent) event;
 					selectedPlayer = typedEvent.getPlayer();
 					fillData();
+				} else if (event instanceof GameEndedEvent) {
+					GameEndedEvent typedEvent = (GameEndedEvent) event;
+					selectedPlayer = playerEntityService.refresh(selectedPlayer);
+					fillData();
+					ListViewUtils.selectByID(gameLW, typedEvent.getGameEntity());
 				}
-
 			}
 		});
 
@@ -77,10 +84,18 @@ public class GameListViewController implements Initializable {
 	}
 
 	private void gameSelectedEvent(GameEntity game) {
+		if (game == null) {
+			return;
+		}
+		game = gameEntityService.refresh(game);
 		observerManager.raiseEvent(new GameSelectedEvent(game));
 	}
 
 	private void newGamePressed(ActionEvent event) {
+		if (selectedPlayer == null) {
+			return;
+		}
+
 		GraphicControllerDTO gcDTO = PaneUtils.loadFXPaneByClass(GameFormController.class);
 		GameFormController controller = (GameFormController) gcDTO.getController();
 

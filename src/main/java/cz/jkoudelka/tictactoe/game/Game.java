@@ -8,7 +8,6 @@ public class Game {
 	private List<Board> boards = new ArrayList<>();
 
 	public Game() {
-		boards.add(new Board());
 	}
 
 	public List<Board> getBoards() {

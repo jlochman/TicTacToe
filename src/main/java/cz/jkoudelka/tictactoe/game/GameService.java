@@ -20,12 +20,20 @@ public class GameService {
 	}
 
 	public Game parse(String s) throws JsonParseException, JsonMappingException, IOException {
+		if (s == null) {
+			return new Game();
+		}
 		return JSONUtils.stringToObject(s, Game.class);
 	}
 
 	public Board getLastBoard(Game game) {
-		Board lastBoard = game.getBoards().get(game.getBoards().size() - 1);
-		return boardService.copyBoard(lastBoard);
+		Board board;
+		if (game.getBoards().size() == 0) {
+			board = new Board();
+		} else {
+			board = game.getBoards().get(game.getBoards().size() - 1);
+		}
+		return boardService.copyBoard(board);
 	}
 
 	public GameResult checkResult(Game game) {

@@ -63,6 +63,10 @@ public class PlayerListViewController implements Initializable {
 	}
 
 	private void playerSelectedEvent(PlayerEntity player) {
+		if (player == null) {
+			return;
+		}
+		player = playerEntityService.refresh(player);
 		observerManager.raiseEvent(new PlayerSelectedEvent(player));
 	}
 
