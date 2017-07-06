@@ -5,8 +5,22 @@ import java.util.List;
 import cz.jkoudelka.tictactoe.DAO.GenericEntityDAO;
 import cz.jkoudelka.tictactoe.entityDomain.PersistenceObject;
 
+/**
+ * Obecny interface pro vsechny entity. Definuje zakladni volani prislusnych
+ * metod z DAO. Vynucuje si implementaci jedine metody {@link #getDAO()}.
+ * 
+ * @author jlochman
+ *
+ * @param <T>
+ *            genericky parametr definujici konkretni entitu
+ */
 public interface EntityServiceInterface<T extends PersistenceObject> {
 
+	/**
+	 * Ziskani patricneho DAO
+	 * 
+	 * @return
+	 */
 	public GenericEntityDAO<T> getDAO();
 
 	public default void persist(T entity) {

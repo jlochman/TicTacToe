@@ -1,7 +1,15 @@
-package cz.jkoudelka.tictactoe.game;
+package cz.jkoudelka.tictactoe.gameInstance;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import cz.jkoudelka.tictactoe.utils.JSONUtils;
+
+/**
+ * Popisuje jedno pole 3x3.
+ * 
+ * @author jlochman
+ *
+ */
 public class Board {
 
 	public final static int ROWS = 3;
@@ -25,12 +33,18 @@ public class Board {
 		validateRowColIndex(row, col);
 		return tiles[row][col];
 	}
-	
+
 	public void setTile(int row, int col, BoardTile tile) {
 		validateRowColIndex(row, col);
 		tiles[row][col] = tile;
 	}
-	
+
+	/**
+	 * validace, zda dany radek a sloupec je v hracim poli
+	 * 
+	 * @param row
+	 * @param col
+	 */
 	private void validateRowColIndex(int row, int col) {
 		if (row < 0 || row >= ROWS) {
 			throw new IllegalArgumentException("row index out of bounds");
@@ -40,10 +54,23 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Enum popisujici, komu dane pole patri
+	 * 
+	 * @author jlochman
+	 *
+	 */
 	public enum BoardTile {
 
 		PLAYER, CPU, EMTPY;
 
+		/**
+		 * tohle je kvuli prevodu BoardTile na String pres {@link JSONUtils}.
+		 * Misto PLAYER se ulozi 0, Misto CPU se ulozi 1 a misto EMPTY se ulozi
+		 * 2.
+		 * 
+		 * @return
+		 */
 		@JsonValue
 		public int toValue() {
 			return ordinal();

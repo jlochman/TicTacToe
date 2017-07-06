@@ -16,7 +16,21 @@ import cz.jkoudelka.tictactoe.entityDomain.enums.BoardSymbol;
 import cz.jkoudelka.tictactoe.entityDomain.enums.CPULogic;
 import cz.jkoudelka.tictactoe.entityDomain.enums.GameInitiator;
 import cz.jkoudelka.tictactoe.entityDomain.enums.GameResult;
+import cz.jkoudelka.tictactoe.gameInstance.GameInstance;
 
+/**
+ * Teto entite prislusi tabulka v DB (stejneho jmena jako trida). Obsahuje
+ * zakladni informace o jedne hre. {@link #playerSymbol} definuje symbol, se
+ * kterym hraje hrac, {@link #cpuSymbol} definuje symbol, se kterym hraje CPU,
+ * {@link #result} popisuje vysledek hry, {@link #initiator} kdo zacina,
+ * {@link #cpuLogic} proti jake logice hrac hraje, {@link #history} definuje
+ * historii hry (ulozenho jako String, dale se parsuje do {@link GameInstance},
+ * {@link #logs} je vazba 1:N na entitu {@link GameLogEntity} a {@link #player}
+ * je vazba N:1 na {@link PlayerEntity}
+ * 
+ * @author jlochman
+ *
+ */
 @Entity
 public class GameEntity extends PersistenceUpdatableObject {
 

@@ -5,8 +5,8 @@ import java.util.List;
 import cz.jkoudelka.tictactoe.entityDomain.PersistenceObject;
 
 /**
- * Zakladni metody pro pristup k DAO objektum. Ukazka prace s generikou (<T
- * extends PersistenceObject>).
+ * Zakladni metody pro pristup k DAO objektum. Ukazka prace s generikou (T
+ * extends PersistenceObject).
  * 
  * @author jlochman
  *

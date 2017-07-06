@@ -7,8 +7,8 @@ import java.util.Random;
 import cz.jkoudelka.tictactoe.cpu.CPULogicException;
 import cz.jkoudelka.tictactoe.cpu.CPULogicInstance;
 import cz.jkoudelka.tictactoe.cpu.Coordinates;
-import cz.jkoudelka.tictactoe.game.Board;
-import cz.jkoudelka.tictactoe.game.Board.BoardTile;
+import cz.jkoudelka.tictactoe.gameInstance.Board;
+import cz.jkoudelka.tictactoe.gameInstance.Board.BoardTile;
 
 /**
  * Ukazkova implementace CPULogicInstance. Jednoduchy nahodny hrac, ktery z

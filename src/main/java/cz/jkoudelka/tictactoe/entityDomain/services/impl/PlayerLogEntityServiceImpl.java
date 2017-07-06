@@ -5,6 +5,12 @@ import cz.jkoudelka.tictactoe.app.DAOLocator;
 import cz.jkoudelka.tictactoe.entityDomain.PlayerLogEntity;
 import cz.jkoudelka.tictactoe.entityDomain.services.PlayerLogEntityService;
 
+/**
+ * Implementace servicy nad {@link PlayerLogEntity}
+ * 
+ * @author jlochman
+ *
+ */
 public class PlayerLogEntityServiceImpl implements PlayerLogEntityService {
 
 	@Override

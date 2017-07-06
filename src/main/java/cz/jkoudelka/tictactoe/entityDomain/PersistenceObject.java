@@ -6,6 +6,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+/**
+ * Zakladni trida pro entity. Kazda entita (jakykoliv radek v DB) bude mit id;
+ * 
+ * @author jlochman
+ *
+ */
 @MappedSuperclass
 public class PersistenceObject {
 

@@ -10,6 +10,15 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+/**
+ * Tato entita popisuje hrace. Obsahuje jeho {@link #name}, heslo {@link #pwd},
+ * datum posledniho logu {@link #lastLogin} (zatim nepouzito). Dale
+ * {@link #games} je vazba 1:N na tabulku se hrami, ktere hrac odehral a
+ * {@link #logs} je vazba 1:N na logy, ktere byli k tomuto hraci zaznamenany.
+ * 
+ * @author jlochman
+ *
+ */
 @Entity
 public class PlayerEntity extends PersistenceUpdatableObject {
 

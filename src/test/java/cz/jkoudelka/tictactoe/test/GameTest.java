@@ -11,9 +11,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import cz.jkoudelka.tictactoe.app.ServiceLocator;
 import cz.jkoudelka.tictactoe.entityDomain.enums.GameResult;
-import cz.jkoudelka.tictactoe.game.Board;
-import cz.jkoudelka.tictactoe.game.GameInstance;
-import cz.jkoudelka.tictactoe.game.GameInstanceService;
+import cz.jkoudelka.tictactoe.gameInstance.Board;
+import cz.jkoudelka.tictactoe.gameInstance.GameInstance;
+import cz.jkoudelka.tictactoe.gameInstance.GameInstanceService;
 
 public class GameTest {
 

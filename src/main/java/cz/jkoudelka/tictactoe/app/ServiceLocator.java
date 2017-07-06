@@ -11,8 +11,8 @@ import cz.jkoudelka.tictactoe.entityDomain.services.impl.GameLogEntityServiceImp
 import cz.jkoudelka.tictactoe.entityDomain.services.impl.LogEntityServiceImpl;
 import cz.jkoudelka.tictactoe.entityDomain.services.impl.PlayerEntityServiceImpl;
 import cz.jkoudelka.tictactoe.entityDomain.services.impl.PlayerLogEntityServiceImpl;
-import cz.jkoudelka.tictactoe.game.BoardService;
-import cz.jkoudelka.tictactoe.game.GameInstanceService;
+import cz.jkoudelka.tictactoe.gameInstance.BoardService;
+import cz.jkoudelka.tictactoe.gameInstance.GameInstanceService;
 import cz.jkoudelka.tictactoe.observer.ObserverManager;
 
 /**

@@ -10,6 +10,12 @@ import cz.jkoudelka.tictactoe.entityDomain.PlayerLogEntity;
 import cz.jkoudelka.tictactoe.entityDomain.enums.LogLevel;
 import cz.jkoudelka.tictactoe.entityDomain.services.PlayerEntityService;
 
+/**
+ * Implementace servicy nad {@link PlayerEntity}.
+ * 
+ * @author jlochman
+ *
+ */
 public class PlayerEntityServiceImpl implements PlayerEntityService {
 
 	@Override

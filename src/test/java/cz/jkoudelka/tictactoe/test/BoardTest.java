@@ -11,8 +11,8 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import cz.jkoudelka.tictactoe.app.ServiceLocator;
-import cz.jkoudelka.tictactoe.game.Board;
-import cz.jkoudelka.tictactoe.game.BoardService;
+import cz.jkoudelka.tictactoe.gameInstance.Board;
+import cz.jkoudelka.tictactoe.gameInstance.BoardService;
 
 public class BoardTest {
 

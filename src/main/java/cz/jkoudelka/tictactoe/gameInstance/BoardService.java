@@ -1,4 +1,4 @@
-package cz.jkoudelka.tictactoe.game;
+package cz.jkoudelka.tictactoe.gameInstance;
 
 import java.io.IOException;
 
@@ -7,19 +7,47 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import cz.jkoudelka.tictactoe.entityDomain.enums.GameResult;
-import cz.jkoudelka.tictactoe.game.Board.BoardTile;
+import cz.jkoudelka.tictactoe.gameInstance.Board.BoardTile;
 import cz.jkoudelka.tictactoe.utils.JSONUtils;
 
+/**
+ * Servica poskytujici metody pro praci s {@link Board}
+ * 
+ * @author jlochman
+ *
+ */
 public class BoardService {
 
+	/**
+	 * Prevod board na String
+	 * 
+	 * @param board
+	 * @return
+	 * @throws JsonProcessingException
+	 */
 	public String stringify(Board board) throws JsonProcessingException {
 		return JSONUtils.objectToString(board);
 	}
 
+	/**
+	 * Prevod Stringu na board
+	 * 
+	 * @param s
+	 * @return
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
 	public Board parse(String s) throws JsonParseException, JsonMappingException, IOException {
 		return JSONUtils.stringToObject(s, Board.class);
 	}
 
+	/**
+	 * Prekopirovani board do nove promenne.
+	 * 
+	 * @param board
+	 * @return
+	 */
 	public Board copyBoard(Board board) {
 		Board newBoard = new Board();
 		for (int row = 0; row < Board.ROWS; row++) {
@@ -30,6 +58,12 @@ public class BoardService {
 		return newBoard;
 	}
 
+	/**
+	 * Zkontroluje, zda dana board uz nevede k neci vyhre
+	 * 
+	 * @param board
+	 * @return
+	 */
 	public GameResult checkResult(Board board) {
 		if (isAnythingConnected(board, BoardTile.PLAYER)) {
 			return GameResult.PLAYER_WINS;
@@ -44,6 +78,13 @@ public class BoardService {
 		}
 	}
 
+	/**
+	 * Spocita, kolik poli daneho typu board obsahuje
+	 * 
+	 * @param board
+	 * @param tile
+	 * @return
+	 */
 	public int countTiles(Board board, BoardTile tile) {
 		int count = 0;
 		for (int row = 0; row < Board.ROWS; row++) {

@@ -9,6 +9,13 @@ import javax.persistence.MappedSuperclass;
 
 import cz.jkoudelka.tictactoe.entityDomain.enums.LogLevel;
 
+/**
+ * Tento objekt krome id obsahuje i informace k logovani. Uroven logu, kdy se
+ * logovalo a pole pro zpravu
+ * 
+ * @author jlochman
+ *
+ */
 @MappedSuperclass
 public class PersistenceLogObject extends PersistenceObject {
 

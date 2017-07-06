@@ -4,6 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
+/**
+ * Tato entita obsahuje logy vazane na konkretni entitu hry. Paremter
+ * {@link #game} obsahuje vazby N:1 na konkretni entitu {@link GameEntity}.
+ * 
+ * @author jlochman
+ *
+ */
 @Entity
 public class GameLogEntity extends PersistenceLogObject {
 

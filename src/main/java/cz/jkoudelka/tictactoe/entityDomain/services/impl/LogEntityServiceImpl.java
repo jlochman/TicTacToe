@@ -8,6 +8,12 @@ import cz.jkoudelka.tictactoe.entityDomain.LogEntity;
 import cz.jkoudelka.tictactoe.entityDomain.enums.LogLevel;
 import cz.jkoudelka.tictactoe.entityDomain.services.LogEntityService;
 
+/**
+ * Implementace servicy nad {@link LogEntity}.
+ * 
+ * @author jlochman
+ *
+ */
 public class LogEntityServiceImpl implements LogEntityService {
 
 	@Override

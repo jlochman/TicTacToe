@@ -1,6 +1,6 @@
 package cz.jkoudelka.tictactoe.cpu;
 
-import cz.jkoudelka.tictactoe.game.Board;
+import cz.jkoudelka.tictactoe.gameInstance.Board;
 
 /**
  * Deklarace abstraktu CPU logiky. Konkretni implementace si vynucuje definovani

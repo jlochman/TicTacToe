@@ -14,8 +14,14 @@ import cz.jkoudelka.tictactoe.entityDomain.GameEntity;
 import cz.jkoudelka.tictactoe.entityDomain.GameLogEntity;
 import cz.jkoudelka.tictactoe.entityDomain.enums.LogLevel;
 import cz.jkoudelka.tictactoe.entityDomain.services.GameEntityService;
-import cz.jkoudelka.tictactoe.game.GameInstance;
+import cz.jkoudelka.tictactoe.gameInstance.GameInstance;
 
+/**
+ * Implementace servicy nad {@link GameEntity}
+ * 
+ * @author jlochman
+ *
+ */
 public class GameEntityServiceImpl implements GameEntityService {
 
 	@Override
