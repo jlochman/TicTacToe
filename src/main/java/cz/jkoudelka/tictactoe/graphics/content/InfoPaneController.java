@@ -9,7 +9,7 @@ import cz.jkoudelka.tictactoe.entityDomain.GameEntity;
 import cz.jkoudelka.tictactoe.entityDomain.services.GameEntityService;
 import cz.jkoudelka.tictactoe.game.Board;
 import cz.jkoudelka.tictactoe.game.Board.BoardTile;
-import cz.jkoudelka.tictactoe.game.Game;
+import cz.jkoudelka.tictactoe.game.GameInstance;
 import cz.jkoudelka.tictactoe.observer.Event;
 import cz.jkoudelka.tictactoe.observer.Observer;
 import cz.jkoudelka.tictactoe.observer.ObserverManager;
@@ -62,7 +62,7 @@ public class InfoPaneController implements Initializable {
 			public void processEvent(Event event) {
 				if (event instanceof GameSelectedEvent) {
 					GameSelectedEvent typedEvent = (GameSelectedEvent) event;
-					fillInfo(typedEvent.getGame());
+					fillInfo(typedEvent.getGameEntity());
 				} else if (event instanceof SomeonePlayedEvent) {
 					SomeonePlayedEvent typedEvent = (SomeonePlayedEvent) event;
 					fillInfo(typedEvent.getGameEntity());
@@ -92,7 +92,7 @@ public class InfoPaneController implements Initializable {
 	private void fillHistoryPane(GameEntity gameEntity) {
 		String playerSymbol = gameEntity.getPlayerSymbol().toString();
 		String cpuSymbol = gameEntity.getCpuSymbol().toString();
-		Game game = gameEntityService.getGame(gameEntity);
+		GameInstance game = gameEntityService.getGameInstance(gameEntity);
 
 		GridPane gridPane = new GridPane();
 		List<Board> boards = game.getBoards();
@@ -118,6 +118,7 @@ public class InfoPaneController implements Initializable {
 
 	private Pane getBoardPane(Board board, String playerSymbol, String cpuSymbol) {
 		GridPane gridPane = new GridPane();
+		gridPane.setGridLinesVisible(true);
 		for (int row = 0; row < Board.ROWS; row++) {
 			for (int col = 0; col < Board.COLS; col++) {
 				BoardTile tile = board.getTile(row, col);
@@ -151,6 +152,8 @@ public class InfoPaneController implements Initializable {
 		lblCPUSymbol.setText("");
 		lblCPULogic.setText("");
 		lblResult.setText("");
+
+		paneHistory.getChildren().clear();
 	}
 
 }

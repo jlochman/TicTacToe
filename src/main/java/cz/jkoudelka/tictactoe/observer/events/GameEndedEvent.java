@@ -2,24 +2,14 @@ package cz.jkoudelka.tictactoe.observer.events;
 
 import cz.jkoudelka.tictactoe.entityDomain.GameEntity;
 import cz.jkoudelka.tictactoe.entityDomain.enums.GameResult;
-import cz.jkoudelka.tictactoe.observer.Event;
 
-public class GameEndedEvent extends Event {
+public class GameEndedEvent extends GameEntityEvent {
 
-	private GameEntity gameEntity;
 	private GameResult gameResult;
 
 	public GameEndedEvent(GameEntity gameEntity, GameResult gameResult) {
-		this.gameEntity = gameEntity;
+		super(gameEntity);
 		this.gameResult = gameResult;
-	}
-
-	public GameEntity getGameEntity() {
-		return gameEntity;
-	}
-
-	public void setGameEntity(GameEntity gameEntity) {
-		this.gameEntity = gameEntity;
 	}
 
 	public GameResult getGameResult() {

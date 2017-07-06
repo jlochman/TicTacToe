@@ -3,11 +3,11 @@ package cz.jkoudelka.tictactoe.game;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game {
+public class GameInstance {
 
 	private List<Board> boards = new ArrayList<>();
 
-	public Game() {
+	public GameInstance() {
 	}
 
 	public List<Board> getBoards() {

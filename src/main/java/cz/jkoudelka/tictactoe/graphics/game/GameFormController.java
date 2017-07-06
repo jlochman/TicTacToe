@@ -32,7 +32,7 @@ public class GameFormController implements Initializable {
 	@FXML
 	private Button btnCreate;
 
-	private GameEntity game;
+	private GameEntity gameEntity;
 
 	private GameEntityService gameEntityService = ServiceLocator.getInstance().getGameEntityService();
 	private ObserverManager observerManager = ServiceLocator.getInstance().getObserverManager();
@@ -46,13 +46,13 @@ public class GameFormController implements Initializable {
 		cbCPULogic.getItems().addAll(CPULogic.values());
 	}
 
-	public void init(GameEntity game) {
-		this.game = game;
+	public void init(GameEntity gameEntity) {
+		this.gameEntity = gameEntity;
 
-		cbInitiator.setValue(game.getInitiator());
-		cbPlayerSymbol.setValue(game.getPlayerSymbol());
-		cbCPUSymbol.setValue(game.getCpuSymbol());
-		cbCPULogic.setValue(game.getCpuLogic());
+		cbInitiator.setValue(gameEntity.getInitiator());
+		cbPlayerSymbol.setValue(gameEntity.getPlayerSymbol());
+		cbCPUSymbol.setValue(gameEntity.getCpuSymbol());
+		cbCPULogic.setValue(gameEntity.getCpuLogic());
 	}
 
 	private void closeWindow() {
@@ -61,12 +61,13 @@ public class GameFormController implements Initializable {
 	}
 
 	private void createGamePressed(ActionEvent event) {
-		game.setInitiator(cbInitiator.getValue());
-		game.setPlayerSymbol(cbPlayerSymbol.getValue());
-		game.setCpuSymbol(cbCPUSymbol.getValue());
-		game.setCpuLogic(cbCPULogic.getValue());
-		gameEntityService.persist(game);
-		observerManager.raiseEvent(new GameCreatedEvent(game));
+		gameEntity.setInitiator(cbInitiator.getValue());
+		gameEntity.setPlayerSymbol(cbPlayerSymbol.getValue());
+		gameEntity.setCpuSymbol(cbCPUSymbol.getValue());
+		gameEntity.setCpuLogic(cbCPULogic.getValue());
+		gameEntityService.persist(gameEntity);
+		gameEntityService.info(gameEntity, "game created");
+		observerManager.raiseEvent(new GameCreatedEvent(gameEntity));
 		closeWindow();
 	}
 

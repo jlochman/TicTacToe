@@ -12,24 +12,24 @@ import cz.jkoudelka.tictactoe.entityDomain.services.impl.LogEntityServiceImpl;
 import cz.jkoudelka.tictactoe.entityDomain.services.impl.PlayerEntityServiceImpl;
 import cz.jkoudelka.tictactoe.entityDomain.services.impl.PlayerLogEntityServiceImpl;
 import cz.jkoudelka.tictactoe.game.BoardService;
-import cz.jkoudelka.tictactoe.game.GameService;
+import cz.jkoudelka.tictactoe.game.GameInstanceService;
 import cz.jkoudelka.tictactoe.observer.ObserverManager;
 
 public class ServiceLocator {
 
 	private DatabaseService dbService;
 
-	private LogEntityService logEntityService;
 	private GameEntityService gameEntityService;
 	private GameLogEntityService gameLogEntityService;
 	private PlayerEntityService playerEntityService;
 	private PlayerLogEntityService playerLogEntityService;
+	private LogEntityService logEntityService;
 
 	private BoardService boardService;
-	private GameService gameService;
+	private GameInstanceService gameInstanceService;
 
 	private ObserverManager observerManager;
-	
+
 	private static ServiceLocator instance;
 
 	private ServiceLocator() {
@@ -45,24 +45,20 @@ public class ServiceLocator {
 	public void initializeService() {
 		dbService = new DatabaseService();
 
-		logEntityService = new LogEntityServiceImpl();
 		gameEntityService = new GameEntityServiceImpl();
 		gameLogEntityService = new GameLogEntityServiceImpl();
 		playerEntityService = new PlayerEntityServiceImpl();
 		playerLogEntityService = new PlayerLogEntityServiceImpl();
+		logEntityService = new LogEntityServiceImpl();
 
 		boardService = new BoardService();
-		gameService = new GameService();
-		
+		gameInstanceService = new GameInstanceService();
+
 		observerManager = new ObserverManager();
 	}
 
 	public DatabaseService getDBService() {
 		return dbService;
-	}
-
-	public LogEntityService getLogEntityService() {
-		return logEntityService;
 	}
 
 	public GameEntityService getGameEntityService() {
@@ -81,14 +77,18 @@ public class ServiceLocator {
 		return playerLogEntityService;
 	}
 
+	public LogEntityService getLogEntityService() {
+		return logEntityService;
+	}
+
 	public BoardService getBoardService() {
 		return boardService;
 	}
 
-	public GameService getGameService() {
-		return gameService;
+	public GameInstanceService getGameInstanceService() {
+		return gameInstanceService;
 	}
-	
+
 	public ObserverManager getObserverManager() {
 		return observerManager;
 	}

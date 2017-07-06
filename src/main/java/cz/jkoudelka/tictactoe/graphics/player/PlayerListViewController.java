@@ -46,7 +46,7 @@ public class PlayerListViewController implements Initializable {
 				if (event instanceof PlayerCreatedEvent) {
 					PlayerCreatedEvent typedEvent = (PlayerCreatedEvent) event;
 					fillData();
-					ListViewUtils.selectByID(playerLW, typedEvent.getPlayer());
+					ListViewUtils.selectByID(playerLW, typedEvent.getPlayerEntity());
 				}
 			}
 		});

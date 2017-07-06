@@ -1,12 +1,12 @@
 package cz.jkoudelka.tictactoe.entityDomain.services;
 
 import cz.jkoudelka.tictactoe.entityDomain.GameEntity;
-import cz.jkoudelka.tictactoe.game.Game;
+import cz.jkoudelka.tictactoe.game.GameInstance;
 
-public interface GameEntityService extends EntityServiceInterface<GameEntity> {
+public interface GameEntityService extends EntityServiceInterface<GameEntity>, EntityLogServiceInterface<GameEntity> {
 
-	public Game getGame(GameEntity entity);
+	public GameInstance getGameInstance(GameEntity entity);
 
-	public void setGame(GameEntity entity, Game game);
+	public void setGameInstance(GameEntity entity, GameInstance game);
 
 }

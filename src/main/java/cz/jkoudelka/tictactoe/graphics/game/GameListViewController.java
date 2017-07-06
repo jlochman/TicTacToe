@@ -36,7 +36,7 @@ public class GameListViewController implements Initializable {
 	private PlayerEntityService playerEntityService = ServiceLocator.getInstance().getPlayerEntityService();
 	private GameEntityService gameEntityService = ServiceLocator.getInstance().getGameEntityService();
 
-	private PlayerEntity selectedPlayer;
+	private PlayerEntity selectedPlayerEntity;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -53,16 +53,16 @@ public class GameListViewController implements Initializable {
 			public void processEvent(Event event) {
 				if (event instanceof GameCreatedEvent) {
 					GameCreatedEvent typedEvent = (GameCreatedEvent) event;
-					selectedPlayer = playerEntityService.refresh(selectedPlayer);
+					selectedPlayerEntity = playerEntityService.refresh(selectedPlayerEntity);
 					fillData();
-					ListViewUtils.selectByID(gameLW, typedEvent.getGame());
+					ListViewUtils.selectByID(gameLW, typedEvent.getGameEntity());
 				} else if (event instanceof PlayerSelectedEvent) {
 					PlayerSelectedEvent typedEvent = (PlayerSelectedEvent) event;
-					selectedPlayer = typedEvent.getPlayer();
+					selectedPlayerEntity = typedEvent.getPlayerEntity();
 					fillData();
 				} else if (event instanceof GameEndedEvent) {
 					GameEndedEvent typedEvent = (GameEndedEvent) event;
-					selectedPlayer = playerEntityService.refresh(selectedPlayer);
+					selectedPlayerEntity = playerEntityService.refresh(selectedPlayerEntity);
 					fillData();
 					ListViewUtils.selectByID(gameLW, typedEvent.getGameEntity());
 				}
@@ -72,11 +72,11 @@ public class GameListViewController implements Initializable {
 	}
 
 	private void fillData() {
-		if (selectedPlayer == null) {
+		if (selectedPlayerEntity == null) {
 			return;
 		}
 		gameLW.getItems().clear();
-		gameLW.getItems().addAll(selectedPlayer.getGames());
+		gameLW.getItems().addAll(selectedPlayerEntity.getGames());
 	}
 
 	private String gameToString(GameEntity game) {
@@ -92,7 +92,7 @@ public class GameListViewController implements Initializable {
 	}
 
 	private void newGamePressed(ActionEvent event) {
-		if (selectedPlayer == null) {
+		if (selectedPlayerEntity == null) {
 			return;
 		}
 
@@ -100,7 +100,7 @@ public class GameListViewController implements Initializable {
 		GameFormController controller = (GameFormController) gcDTO.getController();
 
 		GameEntity formGame = new GameEntity();
-		formGame.setPlayer(selectedPlayer);
+		formGame.setPlayer(selectedPlayerEntity);
 		controller.init(formGame);
 
 		DialogUtils.buildDialog(gcDTO.getGraphic());

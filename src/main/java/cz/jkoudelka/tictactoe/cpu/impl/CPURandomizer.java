@@ -27,7 +27,8 @@ public class CPURandomizer extends CPULogicInstance {
 			}
 		}
 
-		// tohle by nastat nemelo - sama logika hry by mela teto podmince
+		// tohle by nastat nemelo (zadne pole prazdny) - sama logika hry by mela
+		// teto podmince
 		// zabranit
 		if (coordinates.size() == 0) {
 			throw new CPULogicException("There is no empty tile to play");

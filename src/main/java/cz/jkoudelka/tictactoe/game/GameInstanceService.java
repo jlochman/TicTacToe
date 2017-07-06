@@ -11,22 +11,22 @@ import cz.jkoudelka.tictactoe.entityDomain.enums.GameResult;
 import cz.jkoudelka.tictactoe.game.Board.BoardTile;
 import cz.jkoudelka.tictactoe.utils.JSONUtils;
 
-public class GameService {
+public class GameInstanceService {
 
 	private BoardService boardService = ServiceLocator.getInstance().getBoardService();
 
-	public String stringify(Game game) throws JsonProcessingException {
+	public String stringify(GameInstance game) throws JsonProcessingException {
 		return JSONUtils.objectToString(game);
 	}
 
-	public Game parse(String s) throws JsonParseException, JsonMappingException, IOException {
+	public GameInstance parse(String s) throws JsonParseException, JsonMappingException, IOException {
 		if (s == null) {
-			return new Game();
+			return new GameInstance();
 		}
-		return JSONUtils.stringToObject(s, Game.class);
+		return JSONUtils.stringToObject(s, GameInstance.class);
 	}
 
-	public Board getLastBoard(Game game) {
+	public Board getLastBoard(GameInstance game) {
 		Board board;
 		if (game.getBoards().size() == 0) {
 			board = new Board();
@@ -36,11 +36,11 @@ public class GameService {
 		return boardService.copyBoard(board);
 	}
 
-	public GameResult checkResult(Game game) {
+	public GameResult checkResult(GameInstance game) {
 		return boardService.checkResult(getLastBoard(game));
 	}
 
-	public void playCPU(Game game, int row, int col) {
+	public void playCPU(GameInstance game, int row, int col) {
 		Board board = getLastBoard(game);
 		if (board.getTile(row, col) != BoardTile.EMTPY) {
 			throw new IllegalArgumentException("Board tile is not empty");
@@ -49,7 +49,7 @@ public class GameService {
 		game.addBoard(board);
 	}
 
-	public void playPlayer(Game game, int row, int col) {
+	public void playPlayer(GameInstance game, int row, int col) {
 		Board board = getLastBoard(game);
 		if (board.getTile(row, col) != BoardTile.EMTPY) {
 			throw new IllegalArgumentException("Board tile is not empty");

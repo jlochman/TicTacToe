@@ -50,6 +50,7 @@ public class PlayerFormController implements Initializable {
 		player.setName(edtName.getText());
 		player.setPwd(edtPwd.getText());
 		playerEntityService.persist(player);
+		playerEntityService.info(player, "player created");
 		observerManager.raiseEvent(new PlayerCreatedEvent(player));
 		closeWindow();
 	}

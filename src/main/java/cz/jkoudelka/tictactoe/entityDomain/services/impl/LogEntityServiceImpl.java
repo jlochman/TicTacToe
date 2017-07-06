@@ -16,21 +16,7 @@ public class LogEntityServiceImpl implements LogEntityService {
 	}
 
 	@Override
-	public void info(String msg) {
-		log(msg, LogLevel.INFO);
-	}
-
-	@Override
-	public void warn(String msg) {
-		log(msg, LogLevel.WARN);
-	}
-
-	@Override
-	public void error(String msg) {
-		log(msg, LogLevel.ERROR);
-	}
-
-	private void log(String msg, LogLevel level) {
+	public void log(String msg, LogLevel level) {
 		LogEntity log = new LogEntity();
 		log.setMsg(msg);
 		log.setLogLevel(level);
