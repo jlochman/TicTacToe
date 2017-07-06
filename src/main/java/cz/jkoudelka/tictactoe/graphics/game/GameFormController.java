@@ -18,6 +18,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
+/**
+ * Formular pro vytvoreni nove hry.
+ * 
+ * @author jlochman
+ *
+ */
 public class GameFormController implements Initializable {
 
 	@FXML
@@ -37,6 +43,10 @@ public class GameFormController implements Initializable {
 	private GameEntityService gameEntityService = ServiceLocator.getInstance().getGameEntityService();
 	private ObserverManager observerManager = ServiceLocator.getInstance().getObserverManager();
 
+	/**
+	 * Pri inicializaci se nastavi, co se ma stat pri stisku tlacitku a vsechny
+	 * {@link ComboBox}y se naplni prislusnyma hodnotama.
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		btnCreate.setOnAction(this::createGamePressed);
@@ -46,7 +56,16 @@ public class GameFormController implements Initializable {
 		cbCPULogic.getItems().addAll(CPULogic.values());
 	}
 
+	/**
+	 * Pri inicializaci se prekopiruji pole {@link GameEntity} do poli na
+	 * formulari.
+	 * 
+	 * @param gameEntity
+	 */
 	public void init(GameEntity gameEntity) {
+		if (gameEntity == null) {
+			return;
+		}
 		this.gameEntity = gameEntity;
 
 		cbInitiator.setValue(gameEntity.getInitiator());
@@ -60,7 +79,16 @@ public class GameFormController implements Initializable {
 		stage.close();
 	}
 
+	/**
+	 * Pokud je vytvoreni hry potvrzeno, prekopiruji se pole z formulare do
+	 * entity a hra se persistuje. Rovnez je vyvolana patricna udalost.
+	 * 
+	 * @param event
+	 */
 	private void createGamePressed(ActionEvent event) {
+		if (gameEntity == null) {
+			return;
+		}
 		gameEntity.setInitiator(cbInitiator.getValue());
 		gameEntity.setPlayerSymbol(cbPlayerSymbol.getValue());
 		gameEntity.setCpuSymbol(cbCPUSymbol.getValue());

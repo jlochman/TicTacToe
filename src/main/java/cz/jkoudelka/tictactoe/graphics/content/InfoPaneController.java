@@ -8,8 +8,8 @@ import cz.jkoudelka.tictactoe.app.ServiceLocator;
 import cz.jkoudelka.tictactoe.entityDomain.GameEntity;
 import cz.jkoudelka.tictactoe.entityDomain.services.GameEntityService;
 import cz.jkoudelka.tictactoe.gameInstance.Board;
-import cz.jkoudelka.tictactoe.gameInstance.GameInstance;
 import cz.jkoudelka.tictactoe.gameInstance.Board.BoardTile;
+import cz.jkoudelka.tictactoe.gameInstance.GameInstance;
 import cz.jkoudelka.tictactoe.observer.Event;
 import cz.jkoudelka.tictactoe.observer.Observer;
 import cz.jkoudelka.tictactoe.observer.ObserverManager;
@@ -29,6 +29,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 
+/**
+ * Zalozka obsahujici hlavni informace o hre.
+ * 
+ * @author jlochman
+ *
+ */
 public class InfoPaneController implements Initializable {
 
 	@FXML
@@ -51,6 +57,10 @@ public class InfoPaneController implements Initializable {
 	ObserverManager observerManager = ServiceLocator.getInstance().getObserverManager();
 	GameEntityService gameEntityService = ServiceLocator.getInstance().getGameEntityService();
 
+	/**
+	 * Registrace observeru na {@link GameSelectedEvent},
+	 * {@link SomeonePlayedEvent} a {@link PlayerSelectedEvent}
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -74,6 +84,11 @@ public class InfoPaneController implements Initializable {
 
 	}
 
+	/**
+	 * vyplneni informaci pro danou gameEntity.
+	 * 
+	 * @param gameEntity
+	 */
 	private void fillInfo(GameEntity gameEntity) {
 		if (gameEntity == null) {
 			clear();
@@ -89,13 +104,19 @@ public class InfoPaneController implements Initializable {
 		fillHistoryPane(gameEntity);
 	}
 
+	/**
+	 * vykresleni historie hry. Hlavni GridPane (3x3), ktera postupne,
+	 * zleva-doprava, odshora-dolu vykresluje do svych poli stav {@link Board}.
+	 * 
+	 * @param gameEntity
+	 */
 	private void fillHistoryPane(GameEntity gameEntity) {
 		String playerSymbol = gameEntity.getPlayerSymbol().toString();
 		String cpuSymbol = gameEntity.getCpuSymbol().toString();
-		GameInstance game = gameEntityService.getGameInstance(gameEntity);
+		GameInstance gameInstance = gameEntityService.getGameInstance(gameEntity);
 
 		GridPane gridPane = new GridPane();
-		List<Board> boards = game.getBoards();
+		List<Board> boards = gameInstance.getBoards();
 		int row = 0;
 		int col = 0;
 		for (int i = 0; i < boards.size(); i++) {
@@ -104,11 +125,11 @@ public class InfoPaneController implements Initializable {
 			gridPane.add(getBoardPane(boards.get(i), playerSymbol, cpuSymbol), col, row);
 		}
 
+		// nastaveni gridPane, aby zobrazovala pekne
 		ColumnConstraints cc = new ColumnConstraints(BIG_CELL_SIZE, BIG_CELL_SIZE, BIG_CELL_SIZE);
 		RowConstraints rc = new RowConstraints(BIG_CELL_SIZE, BIG_CELL_SIZE, BIG_CELL_SIZE);
 		gridPane.getColumnConstraints().addAll(cc, cc, cc);
 		gridPane.getRowConstraints().addAll(rc, rc, rc);
-
 		for (Node child : gridPane.getChildren()) {
 			GridPane.setHalignment(child, HPos.CENTER);
 			GridPane.setValignment(child, VPos.CENTER);
@@ -116,6 +137,14 @@ public class InfoPaneController implements Initializable {
 		PaneUtils.insertPaneToContent(gridPane, paneHistory);
 	}
 
+	/**
+	 * Vykresleni jedne {@link Board} do GridPane (3x3).
+	 * 
+	 * @param board
+	 * @param playerSymbol
+	 * @param cpuSymbol
+	 * @return
+	 */
 	private Pane getBoardPane(Board board, String playerSymbol, String cpuSymbol) {
 		GridPane gridPane = new GridPane();
 		gridPane.setGridLinesVisible(true);
@@ -134,11 +163,12 @@ public class InfoPaneController implements Initializable {
 				}
 			}
 		}
+
+		// nastaveni gridPane, aby zobrazovala pekne
 		ColumnConstraints cc = new ColumnConstraints(SMALL_CELL_SIZE, SMALL_CELL_SIZE, SMALL_CELL_SIZE);
 		RowConstraints rc = new RowConstraints(SMALL_CELL_SIZE, SMALL_CELL_SIZE, SMALL_CELL_SIZE);
 		gridPane.getColumnConstraints().addAll(cc, cc, cc);
 		gridPane.getRowConstraints().addAll(rc, rc, rc);
-
 		for (Node child : gridPane.getChildren()) {
 			GridPane.setHalignment(child, HPos.CENTER);
 			GridPane.setValignment(child, VPos.CENTER);

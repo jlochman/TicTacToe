@@ -6,8 +6,20 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 
+/**
+ * Metody usnadnujici praci s {@link ListView}
+ * 
+ * @author jlochman
+ *
+ */
 public class ListViewUtils {
 
+	/**
+	 * Pro dany listView vybere specificky item.
+	 * 
+	 * @param listView
+	 * @param item
+	 */
 	public static <T> void select(ListView<T> listView, T item) {
 		if (item == null) {
 			return;
@@ -17,6 +29,13 @@ public class ListViewUtils {
 		listView.scrollTo(item);
 	}
 
+	/**
+	 * Pro dany listView vybere item majici stejny ID, jako item predany jako
+	 * parametr
+	 * 
+	 * @param listView
+	 * @param item
+	 */
 	public static <T extends PersistenceObject> void selectByID(ListView<T> listView, T item) {
 		if (item == null) {
 			return;
@@ -29,6 +48,15 @@ public class ListViewUtils {
 		}
 	}
 
+	/**
+	 * {@link ListView} Zobrazuje string ale obsahuje kolekci objektu.
+	 * Nastavenim TextFactory se definuje, jakym zpusobem se objekt prevadi na
+	 * string. Interface {@link ToStringConverter} je definovan v teto utilitni
+	 * tride.
+	 * 
+	 * @param listView
+	 * @param converter
+	 */
 	public static <T> void setTextFactory(ListView<T> listView, ToStringConverter<T> converter) {
 		listView.setCellFactory(lw -> new ListCell<T>() {
 			@Override
@@ -43,6 +71,13 @@ public class ListViewUtils {
 		});
 	}
 
+	/**
+	 * listView se nastavi, co se ma stat, pokud je vybran novy item. Interface
+	 * {@link NewItemSelectedEvent} je definvat v teto utilitni tride
+	 * 
+	 * @param listView
+	 * @param event
+	 */
 	public static <T> void setNewItemSelectedListener(ListView<T> listView, NewItemSelectedEvent<T> event) {
 		listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<T>() {
 			@Override
@@ -52,10 +87,24 @@ public class ListViewUtils {
 		});
 	}
 
+	/**
+	 * Specificky prevod objektu na String
+	 * 
+	 * @author jlochman
+	 *
+	 * @param <T>
+	 */
 	public interface ToStringConverter<T> {
 		public String toString(T t);
 	}
 
+	/**
+	 * Definuje metodu, ktera se vola pri zvoleni noveho obejktu.
+	 * 
+	 * @author jlochman
+	 *
+	 * @param <T>
+	 */
 	public interface NewItemSelectedEvent<T> {
 		public void processNewItem(T newItem);
 	}

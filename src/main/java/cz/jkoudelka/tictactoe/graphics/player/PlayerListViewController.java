@@ -21,6 +21,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
+/**
+ * Controller obsahujici {@link ListView} zobrazujici vsechny hrace.
+ * 
+ * @author jlochman
+ *
+ */
 public class PlayerListViewController implements Initializable {
 
 	@FXML
@@ -31,6 +37,11 @@ public class PlayerListViewController implements Initializable {
 	private ObserverManager observerManager = ServiceLocator.getInstance().getObserverManager();
 	private PlayerEntityService playerEntityService = ServiceLocator.getInstance().getPlayerEntityService();
 
+	/**
+	 * Pri inicializaci se nastavi, jak se ma hrac zobrazit, co se ma stat pri
+	 * vyberu hrace a akce na tlacitko. Po vyplneni dat se registruje observer,
+	 * naslouchajici na udalost, kdy je vytvoren novy hrac.
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -70,6 +81,12 @@ public class PlayerListViewController implements Initializable {
 		observerManager.raiseEvent(new PlayerSelectedEvent(player));
 	}
 
+	/**
+	 * Pokud je stisknuto tlacitko PridatHrace, pripravi se patricny formular a
+	 * inicializuje se novym hracem.
+	 * 
+	 * @param event
+	 */
 	private void addPlayerPressed(ActionEvent event) {
 		GraphicControllerDTO gcDTO = PaneUtils.loadFXPaneByClass(PlayerFormController.class);
 		PlayerFormController controller = (PlayerFormController) gcDTO.getController();

@@ -10,9 +10,9 @@ import cz.jkoudelka.tictactoe.entityDomain.GameEntity;
 import cz.jkoudelka.tictactoe.entityDomain.enums.GameResult;
 import cz.jkoudelka.tictactoe.entityDomain.services.GameEntityService;
 import cz.jkoudelka.tictactoe.gameInstance.Board;
+import cz.jkoudelka.tictactoe.gameInstance.Board.BoardTile;
 import cz.jkoudelka.tictactoe.gameInstance.GameInstance;
 import cz.jkoudelka.tictactoe.gameInstance.GameInstanceService;
-import cz.jkoudelka.tictactoe.gameInstance.Board.BoardTile;
 import cz.jkoudelka.tictactoe.observer.Event;
 import cz.jkoudelka.tictactoe.observer.Observer;
 import cz.jkoudelka.tictactoe.observer.ObserverManager;
@@ -36,6 +36,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 
+/**
+ * Pane obsahujici hru samotnout - tj. souborj hrace s CPU.
+ * 
+ * @author jlochman
+ *
+ */
 public class GamePaneController implements Initializable {
 
 	@FXML
@@ -53,6 +59,10 @@ public class GamePaneController implements Initializable {
 	private GameEntityService gameEntityService = ServiceLocator.getInstance().getGameEntityService();
 	private GameInstanceService gameInstanceService = ServiceLocator.getInstance().getGameInstanceService();
 
+	/**
+	 * Registrace observeru na {@link GameSelectedEvent} a
+	 * {@link PlayerSelectedEvent}
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -74,6 +84,13 @@ public class GamePaneController implements Initializable {
 
 	}
 
+	/**
+	 * Inicializace controlleru pro danou gameEntity. Vytvari se
+	 * {@link GameInstance} a {@link CPULogicInstance} a zobrazuje se posledni
+	 * stav {@link Board}
+	 * 
+	 * @param gameEntity
+	 */
 	public void init(GameEntity gameEntity) {
 		if (gameEntity == null) {
 			clear();
@@ -104,6 +121,12 @@ public class GamePaneController implements Initializable {
 		gamePane.getChildren().clear();
 	}
 
+	/**
+	 * Zobrazeni hraciho pole. Prazdna pole jsou vybavena tlacitkem s prislusnou
+	 * akci {@link #play(int, int)}
+	 * 
+	 * @param board
+	 */
 	public void displayBoard(Board board) {
 		GridPane gridPane = new GridPane();
 		gridPane.setGridLinesVisible(true);
@@ -135,7 +158,8 @@ public class GamePaneController implements Initializable {
 				}
 			}
 		}
-		
+
+		// pekne zobrazeni GridPane
 		ColumnConstraints cc = new ColumnConstraints(TILE_SIZE, TILE_SIZE, TILE_SIZE);
 		RowConstraints rc = new RowConstraints(TILE_SIZE, TILE_SIZE, TILE_SIZE);
 		gridPane.getColumnConstraints().addAll(cc, cc, cc);
@@ -144,14 +168,23 @@ public class GamePaneController implements Initializable {
 			GridPane.setHalignment(child, HPos.CENTER);
 			GridPane.setValignment(child, VPos.CENTER);
 		}
-		
+
 		PaneUtils.insertPaneToContent(gridPane, gamePane);
 	}
 
+	/**
+	 * Akce vyvolana hracem stisknutim jednoho z tlacitek. Jedna se o hrani
+	 * hrace na row, col.
+	 * 
+	 * @param row
+	 * @param col
+	 */
 	private void play(int row, int col) {
+		// Hraje hrac
 		gameInstanceService.playPlayer(gameInstance, row, col);
 		gameEntityService.info(gameEntity, "player played [" + row + "," + col + "]");
 
+		// Kontroluje se vysledek hry
 		GameResult result = gameInstanceService.checkResult(gameInstance);
 		switch (result) {
 		case PLAYER_WINS:
@@ -166,18 +199,22 @@ public class GamePaneController implements Initializable {
 		default:
 			break;
 		}
+		// Updatuje se hra
 		gameEntityService.setGameInstance(gameEntity, gameInstance);
 		gameEntityService.update(gameEntity);
 		observerManager.raiseEvent(new SomeonePlayedEvent(gameEntity));
 		displayBoard(gameInstanceService.getLastBoard(gameInstance));
 
+		// Pokud hra neskoncila
 		if (gameEntity.getResult() != GameResult.DNF) {
 			return;
 		}
+		// Hraje CPU
 		Coordinates coord = cpuLogic.play(gameInstanceService.getLastBoard(gameInstance));
 		gameInstanceService.playCPU(gameInstance, coord.getRow(), coord.getCol());
 		gameEntityService.info(gameEntity, "cpu played [" + row + "," + col + "]");
 
+		// Kontroluje se vysledek hry
 		result = gameInstanceService.checkResult(gameInstance);
 		switch (result) {
 		case CPU_WINS:
@@ -192,6 +229,7 @@ public class GamePaneController implements Initializable {
 		default:
 			break;
 		}
+		// Updatuje se hra
 		gameEntityService.setGameInstance(gameEntity, gameInstance);
 		gameEntityService.update(gameEntity);
 		observerManager.raiseEvent(new SomeonePlayedEvent(gameEntity));

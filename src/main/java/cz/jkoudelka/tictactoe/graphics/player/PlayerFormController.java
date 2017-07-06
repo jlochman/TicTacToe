@@ -15,6 +15,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * Formular pro zadavani noveho hrace.
+ * 
+ * @author jlochman
+ *
+ */
 public class PlayerFormController implements Initializable {
 
 	@FXML
@@ -29,12 +35,19 @@ public class PlayerFormController implements Initializable {
 
 	private PlayerEntity playerEntity;
 
+	/**
+	 * Nastaveni prislusne akce, co se ma stat, kdyz tlacitko Create je
+	 * zmacknuto.
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		btnCreate.setOnAction(this::createPlayerPressed);
 	}
 
 	public void init(PlayerEntity playerEntity) {
+		if (playerEntity == null) {
+			return;
+		}
 		this.playerEntity = playerEntity;
 
 		edtName.setText(playerEntity.getName());
@@ -46,7 +59,16 @@ public class PlayerFormController implements Initializable {
 		stage.close();
 	}
 
+	/**
+	 * Hodnoty z poli se prekopiruji na {@link PlayerEntity} a ta se nasledne
+	 * ulozi.
+	 * 
+	 * @param event
+	 */
 	private void createPlayerPressed(ActionEvent event) {
+		if (playerEntity == null) {
+			return;
+		}
 		playerEntity.setName(edtName.getText());
 		playerEntity.setPwd(edtPwd.getText());
 		playerEntityService.persist(playerEntity);

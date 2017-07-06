@@ -3,6 +3,12 @@ package cz.jkoudelka.tictactoe.observer.events;
 import cz.jkoudelka.tictactoe.entityDomain.PlayerEntity;
 import cz.jkoudelka.tictactoe.observer.Event;
 
+/**
+ * Obecny event obsahujici {@link PlayerEntity}
+ * 
+ * @author jlochman
+ *
+ */
 public class PlayerEntityEvent extends Event {
 
 	private PlayerEntity playerEntity;

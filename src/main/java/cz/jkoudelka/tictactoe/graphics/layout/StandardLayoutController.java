@@ -21,6 +21,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * Zakladni rozvrzeni cele aplikace. Obsahuje delci {@link AnchorPane}, ktere se
+ * pri inicializici do grafiky vkladaji.
+ * 
+ * @author jlochman
+ *
+ */
 public class StandardLayoutController implements Initializable {
 
 	@FXML
@@ -34,6 +41,11 @@ public class StandardLayoutController implements Initializable {
 
 	ObserverManager observerManager = ServiceLocator.getInstance().getObserverManager();
 
+	/**
+	 * Vlozeni jednotlivych grafik do prislusnych {@link AnchorPane}. Registrace
+	 * observeru, ktery reaguje na ukonceni hry zobrazenim zpravy, ze hra
+	 * skoncila.
+	 */
 	public void initialize(URL location, ResourceBundle resources) {
 		GraphicControllerDTO gcDTO;
 

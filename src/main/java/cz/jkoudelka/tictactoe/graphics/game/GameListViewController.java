@@ -25,6 +25,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
+/**
+ * Cast grafiky obsahujici {@link ListView} s {@link GameEntity} pro daneho
+ * hrace. Vedle vypisu vsech her obsahuje i moznost vytvorit novou hru.
+ * 
+ * @author jlochman
+ *
+ */
 public class GameListViewController implements Initializable {
 
 	@FXML
@@ -38,6 +45,13 @@ public class GameListViewController implements Initializable {
 
 	private PlayerEntity selectedPlayerEntity;
 
+	/**
+	 * Nastaveni, jak se ma GameEntity v ListView zobrazit, co se ma stat, kdyz
+	 * je nova hra vybrana a co se ma stat pri stisku tlacitka. Pote se vyplni
+	 * data a registruje observer na nasledujici udalosti:
+	 * {@link GameCreatedEvent}, {@link GameEndedEvent} a
+	 * {@link PlayerSelectedEvent}
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -91,6 +105,12 @@ public class GameListViewController implements Initializable {
 		observerManager.raiseEvent(new GameSelectedEvent(game));
 	}
 
+	/**
+	 * akce volana pri stisku tlacitka vytvorit novou hru. Vytvori se formular
+	 * {@link GameFormController} a preda se mu nova entita {@link GameEntity}.
+	 * 
+	 * @param event
+	 */
 	private void newGamePressed(ActionEvent event) {
 		if (selectedPlayerEntity == null) {
 			return;
