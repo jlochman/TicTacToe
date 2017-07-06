@@ -52,4 +52,12 @@ public class ListViewUtils {
 		});
 	}
 
+	public interface ToStringConverter<T> {
+		public String toString(T t);
+	}
+
+	public interface NewItemSelectedEvent<T> {
+		public void processNewItem(T newItem);
+	}
+
 }

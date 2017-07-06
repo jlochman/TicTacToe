@@ -51,7 +51,7 @@ public class GamePaneController implements Initializable {
 
 	private ObserverManager observerManager = ServiceLocator.getInstance().getObserverManager();
 	private GameEntityService gameEntityService = ServiceLocator.getInstance().getGameEntityService();
-	private GameInstanceService gameService = ServiceLocator.getInstance().getGameInstanceService();
+	private GameInstanceService gameInstanceService = ServiceLocator.getInstance().getGameInstanceService();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -92,7 +92,7 @@ public class GamePaneController implements Initializable {
 			e.printStackTrace();
 		}
 
-		Board lastBoard = gameService.getLastBoard(gameInstance);
+		Board lastBoard = gameInstanceService.getLastBoard(gameInstance);
 		if (lastBoard == null) {
 			displayBoard(new Board());
 		} else {
@@ -135,23 +135,24 @@ public class GamePaneController implements Initializable {
 				}
 			}
 		}
+		
 		ColumnConstraints cc = new ColumnConstraints(TILE_SIZE, TILE_SIZE, TILE_SIZE);
 		RowConstraints rc = new RowConstraints(TILE_SIZE, TILE_SIZE, TILE_SIZE);
 		gridPane.getColumnConstraints().addAll(cc, cc, cc);
 		gridPane.getRowConstraints().addAll(rc, rc, rc);
-
 		for (Node child : gridPane.getChildren()) {
 			GridPane.setHalignment(child, HPos.CENTER);
 			GridPane.setValignment(child, VPos.CENTER);
 		}
+		
 		PaneUtils.insertPaneToContent(gridPane, gamePane);
 	}
 
 	private void play(int row, int col) {
-		gameService.playPlayer(gameInstance, row, col);
+		gameInstanceService.playPlayer(gameInstance, row, col);
 		gameEntityService.info(gameEntity, "player played [" + row + "," + col + "]");
 
-		GameResult result = gameService.checkResult(gameInstance);
+		GameResult result = gameInstanceService.checkResult(gameInstance);
 		switch (result) {
 		case PLAYER_WINS:
 			gameEntity.setResult(GameResult.PLAYER_WINS);
@@ -168,16 +169,16 @@ public class GamePaneController implements Initializable {
 		gameEntityService.setGameInstance(gameEntity, gameInstance);
 		gameEntityService.update(gameEntity);
 		observerManager.raiseEvent(new SomeonePlayedEvent(gameEntity));
-		displayBoard(gameService.getLastBoard(gameInstance));
+		displayBoard(gameInstanceService.getLastBoard(gameInstance));
 
 		if (gameEntity.getResult() != GameResult.DNF) {
 			return;
 		}
-		Coordinates coord = cpuLogic.play(gameService.getLastBoard(gameInstance));
-		gameService.playCPU(gameInstance, coord.getRow(), coord.getCol());
+		Coordinates coord = cpuLogic.play(gameInstanceService.getLastBoard(gameInstance));
+		gameInstanceService.playCPU(gameInstance, coord.getRow(), coord.getCol());
 		gameEntityService.info(gameEntity, "cpu played [" + row + "," + col + "]");
 
-		result = gameService.checkResult(gameInstance);
+		result = gameInstanceService.checkResult(gameInstance);
 		switch (result) {
 		case CPU_WINS:
 			gameEntity.setResult(GameResult.CPU_WINS);
@@ -194,7 +195,7 @@ public class GamePaneController implements Initializable {
 		gameEntityService.setGameInstance(gameEntity, gameInstance);
 		gameEntityService.update(gameEntity);
 		observerManager.raiseEvent(new SomeonePlayedEvent(gameEntity));
-		displayBoard(gameService.getLastBoard(gameInstance));
+		displayBoard(gameInstanceService.getLastBoard(gameInstance));
 	}
 
 }

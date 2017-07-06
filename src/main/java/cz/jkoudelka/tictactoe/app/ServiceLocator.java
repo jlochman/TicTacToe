@@ -45,11 +45,11 @@ public class ServiceLocator {
 	public void initializeService() {
 		dbService = new DatabaseService();
 
+		logEntityService = new LogEntityServiceImpl();
 		gameEntityService = new GameEntityServiceImpl();
 		gameLogEntityService = new GameLogEntityServiceImpl();
 		playerEntityService = new PlayerEntityServiceImpl();
 		playerLogEntityService = new PlayerLogEntityServiceImpl();
-		logEntityService = new LogEntityServiceImpl();
 
 		boardService = new BoardService();
 		gameInstanceService = new GameInstanceService();

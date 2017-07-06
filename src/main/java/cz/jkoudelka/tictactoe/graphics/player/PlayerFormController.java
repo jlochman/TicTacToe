@@ -27,18 +27,18 @@ public class PlayerFormController implements Initializable {
 	private PlayerEntityService playerEntityService = ServiceLocator.getInstance().getPlayerEntityService();
 	private ObserverManager observerManager = ServiceLocator.getInstance().getObserverManager();
 
-	private PlayerEntity player;
+	private PlayerEntity playerEntity;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		btnCreate.setOnAction(this::createPlayerPressed);
 	}
 
-	public void init(PlayerEntity player) {
-		this.player = player;
+	public void init(PlayerEntity playerEntity) {
+		this.playerEntity = playerEntity;
 
-		edtName.setText(player.getName());
-		edtPwd.setText(player.getPwd());
+		edtName.setText(playerEntity.getName());
+		edtPwd.setText(playerEntity.getPwd());
 	}
 
 	private void closeWindow() {
@@ -47,11 +47,11 @@ public class PlayerFormController implements Initializable {
 	}
 
 	private void createPlayerPressed(ActionEvent event) {
-		player.setName(edtName.getText());
-		player.setPwd(edtPwd.getText());
-		playerEntityService.persist(player);
-		playerEntityService.info(player, "player created");
-		observerManager.raiseEvent(new PlayerCreatedEvent(player));
+		playerEntity.setName(edtName.getText());
+		playerEntity.setPwd(edtPwd.getText());
+		playerEntityService.persist(playerEntity);
+		playerEntityService.info(playerEntity, "player created");
+		observerManager.raiseEvent(new PlayerCreatedEvent(playerEntity));
 		closeWindow();
 	}
 
