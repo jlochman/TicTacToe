@@ -1,5 +1,12 @@
 package cz.jkoudelka.tictactoe.cpu;
 
+/**
+ * pokud v implementaci CPULogicInstance nastane nejaka necekana vyjimka, mela
+ * by byt vhozena pres tuto tridu
+ * 
+ * @author jlochman
+ *
+ */
 public class CPULogicException extends RuntimeException {
 
 	public CPULogicException() {

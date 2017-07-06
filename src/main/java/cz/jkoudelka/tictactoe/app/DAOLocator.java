@@ -11,6 +11,13 @@ import cz.jkoudelka.tictactoe.DAO.database.LogEntityDatabaseDAO;
 import cz.jkoudelka.tictactoe.DAO.database.PlayerEntityDatabaseDAO;
 import cz.jkoudelka.tictactoe.DAO.database.PlayerLogEntityDatabaseDAO;
 
+/**
+ * Navrhovy vzor Singleton (jedna instance na aplikaci). Zprostredkovava pristup
+ * k DAO, ktere inicializuje.
+ * 
+ * @author jlochman
+ *
+ */
 public class DAOLocator {
 
 	private LogEntityDAO logDAO;
@@ -21,9 +28,17 @@ public class DAOLocator {
 
 	private static DAOLocator instance;
 
+	/**
+	 * privatni constructor
+	 */
 	private DAOLocator() {
 	}
 
+	/**
+	 * jediny zpusob, jak je mozno ziskat instanci teto tridy
+	 * 
+	 * @return instance DAOLocatoru
+	 */
 	public static DAOLocator getInstance() {
 		if (instance == null) {
 			instance = new DAOLocator();
@@ -31,6 +46,11 @@ public class DAOLocator {
 		return instance;
 	}
 
+	/**
+	 * inicializuje veskere DAO - DAO jsou v deklaraci typovany na interface,
+	 * ale inicializuju je jako ...DatabaseDAO, tj. uz konkretni implementaci,
+	 * ktera zprostredkovava pristup do DB.
+	 */
 	public void initializeDAOs() {
 		logDAO = new LogEntityDatabaseDAO();
 		playerDAO = new PlayerEntityDatabaseDAO();

@@ -10,6 +10,13 @@ import cz.jkoudelka.tictactoe.cpu.Coordinates;
 import cz.jkoudelka.tictactoe.game.Board;
 import cz.jkoudelka.tictactoe.game.Board.BoardTile;
 
+/**
+ * Ukazkova implementace CPULogicInstance. Jednoduchy nahodny hrac, ktery z
+ * volnych poli nahodne vybere a tam hraje.
+ * 
+ * @author jlochman
+ *
+ */
 public class CPURandomizer extends CPULogicInstance {
 
 	private Random rand = new Random();
@@ -28,13 +35,12 @@ public class CPURandomizer extends CPULogicInstance {
 		}
 
 		// tohle by nastat nemelo (zadne pole prazdny) - sama logika hry by mela
-		// teto podmince
-		// zabranit
+		// teto podmince zabranit
 		if (coordinates.size() == 0) {
 			throw new CPULogicException("There is no empty tile to play");
 		}
 
-		// z prazdnych poli vyberu nahodne prazdne pole
+		// z prazdnych poli nahodne vyberu
 		int index = rand.nextInt(coordinates.size());
 		return coordinates.get(index);
 

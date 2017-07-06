@@ -15,6 +15,13 @@ import cz.jkoudelka.tictactoe.game.BoardService;
 import cz.jkoudelka.tictactoe.game.GameInstanceService;
 import cz.jkoudelka.tictactoe.observer.ObserverManager;
 
+/**
+ * Navrhovy vzor Singleton (jedna instance na aplikaci). Zprostredovava pristup
+ * k servicam, ktere inicialiuzje.
+ * 
+ * @author jlochman
+ *
+ */
 public class ServiceLocator {
 
 	private DatabaseService dbService;
@@ -32,9 +39,17 @@ public class ServiceLocator {
 
 	private static ServiceLocator instance;
 
+	/**
+	 * privatni constructor
+	 */
 	private ServiceLocator() {
 	}
 
+	/**
+	 * jediny zpusob, jak obdrzen instanci teto tridy
+	 * 
+	 * @return
+	 */
 	public static ServiceLocator getInstance() {
 		if (instance == null) {
 			instance = new ServiceLocator();
@@ -42,6 +57,10 @@ public class ServiceLocator {
 		return instance;
 	}
 
+	/**
+	 * inicializace service. Servicy deklarovany jako inteface, zde volim
+	 * konkretni implementaci
+	 */
 	public void initializeService() {
 		dbService = new DatabaseService();
 

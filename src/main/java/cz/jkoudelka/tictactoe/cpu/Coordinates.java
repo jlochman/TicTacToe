@@ -1,5 +1,12 @@
 package cz.jkoudelka.tictactoe.cpu;
 
+/**
+ * zaobaleni souradnic do jedne tridy. Tato trida je vraceno metoodu v
+ * {@link CPULogicInstance}
+ * 
+ * @author jlochman
+ *
+ */
 public class Coordinates {
 
 	private int row;

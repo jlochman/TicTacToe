@@ -9,14 +9,35 @@ import javax.persistence.Query;
 
 import cz.jkoudelka.tictactoe.entityDomain.PersistenceObject;
 
+/**
+ * Servica, ktera pres EntityManager poskytuje zakladni metody pro praci s
+ * entitama. Pro pristup k databazi je pouzito jiz hotove reseni JPA 2.0 (Java
+ * Persistence API), specialne jeho konretni implementace - Hibernate. Hibernate
+ * zprostredkovava most mezi SQL dotazy (SELECT * ...) a objekty.
+ * EntityManagerFactory je halvnim objektem pro pristup k DB - konkretni
+ * pripojeni k DB je definovano v src/main/resources/META-INF/persistence.xml.
+ * EntityManager, ktery EntityManagerFactory vytvari, se pak pouziva pro
+ * jednotlive transakcni operace nad DB.
+ * 
+ * @author jlochman
+ *
+ */
 public class DatabaseService {
 
 	private EntityManagerFactory emf;
 
+	/**
+	 * Inicializace EntityManagerFacotry
+	 */
 	public DatabaseService() {
 		emf = Persistence.createEntityManagerFactory("tictactoeDB");
 	}
 
+	/**
+	 * Ziskani EntityManageru pres EntityManagerFactory
+	 * 
+	 * @return
+	 */
 	public EntityManager getEntityManager() {
 		return emf.createEntityManager();
 	}
